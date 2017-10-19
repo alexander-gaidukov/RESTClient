@@ -8,22 +8,12 @@
 
 import Foundation
 
-typealias JSON = [String: Any]
-
-struct User {
+struct User: Decodable {
     var id: String
-    var email: String?
-    var name: String?
+    var email: String
+    var name: String
 }
 
-extension User {
-    init?(json: JSON) {
-        guard let id = json["id"] as? String else {
-            return nil
-        }
-        
-        self.id = id
-        self.email = json["email"] as? String
-        self.name = json["name"] as? String
-    }
+struct FriendsResponse: Decodable {
+    var friends: [User]
 }
