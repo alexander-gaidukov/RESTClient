@@ -104,13 +104,13 @@ extension URLRequest {
 open class JRCWebClient {
     private var baseUrl: String
     
-    var commonParams: JSON = [:]
+    public var commonParams: JSON = [:]
     
-    init(baseUrl: String) {
+    public init(baseUrl: String) {
         self.baseUrl = baseUrl
     }
     
-    func load<A, CustomError>(path: String,
+    public func load<A, CustomError>(path: String,
                  method: RequestMethod = .get,
                  params: JSON = [:],
                  headers: HTTPHeaders = [:],
@@ -151,7 +151,7 @@ open class JRCWebClient {
         
     }
     
-    func loadJSON<A: Decodable, CustomError: Decodable>(path: String,
+    public func loadJSON<A: Decodable, CustomError: Decodable>(path: String,
                                          method: RequestMethod = .get,
                                          params: JSON = [:],
                                          headers: HTTPHeaders = [:],
