@@ -55,24 +55,24 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func loadFriends() {
-        friendsTask?.cancel() //Cancel previous loading task.
+        friendsTask?.cancel()
         
-        activityIndicator.startAnimating() //Show loading indicator
+        activityIndicator.startAnimating()
         
-        friendsTask = ViewController.sharedWebClient.load(path: "/59e8956d0f00000708aefb59") {[weak self](response: FriendsResponse?, error: JRCWebError<CustomError>?) in
+        friendsTask = ViewController.sharedWebClient.loadJSON(path: "/59e8956d0f00000708aefb59") {[weak self] (response: Result<FriendsResponse, CustomError>) in
             
             guard let controller = self else { return }
             
             DispatchQueue.main.async {
-                
                 controller.activityIndicator.stopAnimating()
                 
-                if let friends = response?.friends {
+                if let friends = response.value?.friends {
                     controller.friends = friends
-                } else if let error = error {
+                } else if let error = response.error {
                     controller.handleError(error)
                 }
             }
+            
         }
     }
     

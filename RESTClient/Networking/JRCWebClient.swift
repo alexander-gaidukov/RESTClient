@@ -40,6 +40,32 @@ struct Path {
     }
 }
 
+public enum Result<A, CustomError> {
+    case success(A)
+    case failure(JRCWebError<CustomError>)
+}
+
+extension Result {
+    init(value: A?, or error: JRCWebError<CustomError>) {
+        guard let value = value else {
+            self = .failure(error)
+            return
+        }
+        
+        self = .success(value)
+    }
+    
+    var value: A? {
+        guard case let .success(value) = self else { return nil }
+        return value
+    }
+    
+    var error: JRCWebError<CustomError>? {
+        guard case let .failure(error) = self else { return nil }
+        return error
+    }
+}
+
 extension URL {
     init(baseUrl: String, path: String, params: JSON, method: RequestMethod) {
         var components = URLComponents(string: baseUrl)!
@@ -63,8 +89,6 @@ extension URLRequest {
         let url = URL(baseUrl: baseUrl, path: path, params: params, method: method)
         self.init(url: url)
         httpMethod = method.rawValue
-        setValue("application/json", forHTTPHeaderField: "Accept")
-        setValue("application/json", forHTTPHeaderField: "Content-Type")
         headers.forEach{
             setValue($0.value, forHTTPHeaderField: $0.key)
         }
@@ -81,55 +105,71 @@ open class JRCWebClient {
     private var baseUrl: String
     
     var commonParams: JSON = [:]
-    var jsonDecoder = JSONDecoder()
     
     init(baseUrl: String) {
         self.baseUrl = baseUrl
     }
     
-    func load<A: Decodable, CustomError>(path: String,
-                                         method: RequestMethod = .get,
-                                         params: JSON = [:],
-                                         headers: HTTPHeaders = [:],
-                                         completion: @escaping (A?, JRCWebError<CustomError>?) -> ()) -> URLSessionDataTask? {
-        // Checking internet connection availability
+    func load<A, CustomError>(path: String,
+                 method: RequestMethod = .get,
+                 params: JSON = [:],
+                 headers: HTTPHeaders = [:],
+                 parse: @escaping (Data) -> A?,
+                 parseError: @escaping (Data) -> CustomError? = {_ in return nil},
+                 completion: @escaping (Result<A, CustomError>) ->()) -> URLSessionDataTask? {
+        
         if !Reachability.isConnectedToNetwork() {
-            completion(nil, .noInternetConnection)
+            completion(.failure(.noInternetConnection))
             return nil
         }
         
-        // Adding common parameters
         let parameters = params.merging(commonParams, uniquingKeysWith: { spec, common in
             return spec
         })
         
-        // Creating the URLRequest object
         let request = URLRequest(baseUrl: baseUrl, path: path, method: method, params: parameters, headers: headers)
         
-        // Sending request to the server.
         let task = URLSession.shared.dataTask(with: request) { data, response, _ in
             // Parsing incoming data
             guard let response = response as? HTTPURLResponse else {
-                completion(nil, .other)
+                completion(.failure(.noInternetConnection))
                 return
             }
             
             if (200..<300) ~= response.statusCode {
-                if let result = data.flatMap({ try? self.jsonDecoder.decode(A.self, from: $0) }) {
-                    completion(result, nil)
-                } else {
-                    completion(nil, .other)
-                }
+                completion(Result(value: data.flatMap(parse), or: .other))
             } else if response.statusCode == 401 {
-                completion(nil, .unauthorized)
+                completion(.failure(.unauthorized))
             } else {
-                let error: JRCWebError = data.flatMap({ try? self.jsonDecoder.decode(CustomError.self, from: $0) }).map({ JRCWebError.custom($0) }) ?? .other
-                completion(nil, error)
+                completion(.failure(data.flatMap(parseError).map({.custom($0)}) ?? .other))
             }
         }
         
         task.resume()
         
         return task
+        
+    }
+    
+    func loadJSON<A: Decodable, CustomError: Decodable>(path: String,
+                                         method: RequestMethod = .get,
+                                         params: JSON = [:],
+                                         headers: HTTPHeaders = [:],
+                                         decoder: JSONDecoder = JSONDecoder(),
+                                         completion: @escaping (Result<A, CustomError>) -> ()) -> URLSessionDataTask? {
+        
+        let newHeaders = headers.merging(["Accept": "application/json", "Content-Type": "application/json"]) { first, second in
+            return second
+        }
+        
+        return load(path: path,
+                    method: method,
+                    params: params,
+                    headers: newHeaders,
+                    parse: {return try? decoder.decode(A.self, from: $0)},
+                    parseError: { return try? decoder.decode(CustomError.self, from: $0)},
+                    completion: completion)
+        
+        
     }
 }
