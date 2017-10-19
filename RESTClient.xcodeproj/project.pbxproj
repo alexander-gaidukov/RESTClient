@@ -17,6 +17,8 @@
 		3B4F145D1DDF0C4D00D31F1B /* JRCWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F145C1DDF0C4D00D31F1B /* JRCWebClient.swift */; };
 		3B4F145F1DDF0CC600D31F1B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F145E1DDF0CC600D31F1B /* Reachability.swift */; };
 		711DAA691F98D2610006A620 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA681F98D2610006A620 /* CustomError.swift */; };
+		711DAA6C1F9911A60006A620 /* CacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA6B1F9911A60006A620 /* CacheItem.swift */; };
+		711DAA6E1F9911F00006A620 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA6D1F9911F00006A620 /* Cache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		3B4F145C1DDF0C4D00D31F1B /* JRCWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JRCWebClient.swift; path = Networking/JRCWebClient.swift; sourceTree = "<group>"; };
 		3B4F145E1DDF0CC600D31F1B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Networking/Reachability.swift; sourceTree = "<group>"; };
 		711DAA681F98D2610006A620 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		711DAA6B1F9911A60006A620 /* CacheItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheItem.swift; sourceTree = "<group>"; };
+		711DAA6D1F9911F00006A620 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,11 +92,21 @@
 		711DAA671F98BA7E0006A620 /* JSONRestClient */ = {
 			isa = PBXGroup;
 			children = (
+				711DAA6A1F9911530006A620 /* Cache */,
 				3B4F145E1DDF0CC600D31F1B /* Reachability.swift */,
 				3B4F145C1DDF0C4D00D31F1B /* JRCWebClient.swift */,
 				3B4F14591DDF0B5200D31F1B /* JRCWebError.swift */,
 			);
 			name = JSONRestClient;
+			sourceTree = "<group>";
+		};
+		711DAA6A1F9911530006A620 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				711DAA6B1F9911A60006A620 /* CacheItem.swift */,
+				711DAA6D1F9911F00006A620 /* Cache.swift */,
+			);
+			name = Cache;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,10 +183,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				711DAA691F98D2610006A620 /* CustomError.swift in Sources */,
+				711DAA6E1F9911F00006A620 /* Cache.swift in Sources */,
 				3B4F145A1DDF0B5200D31F1B /* JRCWebError.swift in Sources */,
 				3B4F14451DDF09E500D31F1B /* ViewController.swift in Sources */,
 				3B4F145F1DDF0CC600D31F1B /* Reachability.swift in Sources */,
 				3B4F14431DDF09E500D31F1B /* AppDelegate.swift in Sources */,
+				711DAA6C1F9911A60006A620 /* CacheItem.swift in Sources */,
 				3B4F145D1DDF0C4D00D31F1B /* JRCWebClient.swift in Sources */,
 				3B4F14561DDF0A3000D31F1B /* User.swift in Sources */,
 			);
