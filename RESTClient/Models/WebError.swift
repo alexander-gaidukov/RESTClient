@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum JRCWebError<CustomError>: Error {
+public enum WebError<CustomError>: Error {
     case noInternetConnection
     case custom(CustomError)
     case unauthorized

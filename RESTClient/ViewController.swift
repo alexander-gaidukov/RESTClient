@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    static let sharedWebClient = JRCWebClient.init(baseUrl: "http://www.mocky.io/v2")
+    static let sharedWebClient = WebClient.init(baseUrl: "http://www.mocky.io/v2")
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         
     }
     
-    private func handleError(_ error: JRCWebError<CustomError>) {
+    private func handleError(_ error: WebError<CustomError>) {
         switch error {
         case .noInternetConnection:
             showErrorAlert(with: "The internet connection is lost")
@@ -59,7 +59,9 @@ class ViewController: UIViewController {
         
         activityIndicator.startAnimating()
         
-        friendsTask = ViewController.sharedWebClient.loadJSON(path: "/59e8956d0f00000708aefb59") {[weak self] (response: Result<FriendsResponse, CustomError>) in
+        let friensResource = Resource<FriendsResponse, CustomError>(jsonDecoder: JSONDecoder(), path: "/59e8956d0f00000708aefb59")
+        
+        friendsTask = ViewController.sharedWebClient.load(resource: friensResource) {[weak self] response in
             
             guard let controller = self else { return }
             
@@ -72,7 +74,6 @@ class ViewController: UIViewController {
                     controller.handleError(error)
                 }
             }
-            
         }
     }
     

@@ -13,13 +13,16 @@
 		3B4F144A1DDF09E500D31F1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F14491DDF09E500D31F1B /* Assets.xcassets */; };
 		3B4F144D1DDF09E500D31F1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B4F144B1DDF09E500D31F1B /* LaunchScreen.storyboard */; };
 		3B4F14561DDF0A3000D31F1B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F14551DDF0A3000D31F1B /* User.swift */; };
-		3B4F145A1DDF0B5200D31F1B /* JRCWebError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F14591DDF0B5200D31F1B /* JRCWebError.swift */; };
-		3B4F145D1DDF0C4D00D31F1B /* JRCWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F145C1DDF0C4D00D31F1B /* JRCWebClient.swift */; };
+		3B4F145A1DDF0B5200D31F1B /* WebError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F14591DDF0B5200D31F1B /* WebError.swift */; };
+		3B4F145D1DDF0C4D00D31F1B /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F145C1DDF0C4D00D31F1B /* WebClient.swift */; };
 		3B4F145F1DDF0CC600D31F1B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4F145E1DDF0CC600D31F1B /* Reachability.swift */; };
 		711DAA691F98D2610006A620 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA681F98D2610006A620 /* CustomError.swift */; };
 		711DAA6C1F9911A60006A620 /* CacheItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA6B1F9911A60006A620 /* CacheItem.swift */; };
 		711DAA6E1F9911F00006A620 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA6D1F9911F00006A620 /* Cache.swift */; };
-		711DAA711F9935D50006A620 /* JRCCachedWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA701F9935D50006A620 /* JRCCachedWebClient.swift */; };
+		711DAA711F9935D50006A620 /* CachedWebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711DAA701F9935D50006A620 /* CachedWebClient.swift */; };
+		71D543BD1F9A086B00721CFC /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D543BC1F9A086B00721CFC /* Resource.swift */; };
+		71D543BF1F9A08D700721CFC /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D543BE1F9A08D700721CFC /* Path.swift */; };
+		71D543C11F9A0DA700721CFC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D543C01F9A0DA700721CFC /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,13 +34,16 @@
 		3B4F144C1DDF09E500D31F1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B4F144E1DDF09E500D31F1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B4F14551DDF0A3000D31F1B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
-		3B4F14591DDF0B5200D31F1B /* JRCWebError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JRCWebError.swift; path = Models/JRCWebError.swift; sourceTree = "<group>"; };
-		3B4F145C1DDF0C4D00D31F1B /* JRCWebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JRCWebClient.swift; path = Networking/JRCWebClient.swift; sourceTree = "<group>"; };
+		3B4F14591DDF0B5200D31F1B /* WebError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebError.swift; path = Models/WebError.swift; sourceTree = "<group>"; };
+		3B4F145C1DDF0C4D00D31F1B /* WebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebClient.swift; path = Networking/WebClient.swift; sourceTree = "<group>"; };
 		3B4F145E1DDF0CC600D31F1B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Networking/Reachability.swift; sourceTree = "<group>"; };
 		711DAA681F98D2610006A620 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
 		711DAA6B1F9911A60006A620 /* CacheItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheItem.swift; sourceTree = "<group>"; };
 		711DAA6D1F9911F00006A620 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
-		711DAA701F9935D50006A620 /* JRCCachedWebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JRCCachedWebClient.swift; sourceTree = "<group>"; };
+		711DAA701F9935D50006A620 /* CachedWebClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedWebClient.swift; sourceTree = "<group>"; };
+		71D543BC1F9A086B00721CFC /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		71D543BE1F9A08D700721CFC /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		71D543C01F9A0DA700721CFC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +102,11 @@
 			children = (
 				711DAA6A1F9911530006A620 /* Cache */,
 				3B4F145E1DDF0CC600D31F1B /* Reachability.swift */,
-				3B4F145C1DDF0C4D00D31F1B /* JRCWebClient.swift */,
-				3B4F14591DDF0B5200D31F1B /* JRCWebError.swift */,
+				3B4F145C1DDF0C4D00D31F1B /* WebClient.swift */,
+				3B4F14591DDF0B5200D31F1B /* WebError.swift */,
+				71D543BC1F9A086B00721CFC /* Resource.swift */,
+				71D543C01F9A0DA700721CFC /* Result.swift */,
+				71D543BE1F9A08D700721CFC /* Path.swift */,
 			);
 			name = JSONRestClient;
 			sourceTree = "<group>";
@@ -107,7 +116,7 @@
 			children = (
 				711DAA6B1F9911A60006A620 /* CacheItem.swift */,
 				711DAA6D1F9911F00006A620 /* Cache.swift */,
-				711DAA701F9935D50006A620 /* JRCCachedWebClient.swift */,
+				711DAA701F9935D50006A620 /* CachedWebClient.swift */,
 			);
 			name = Cache;
 			sourceTree = "<group>";
@@ -186,14 +195,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				711DAA691F98D2610006A620 /* CustomError.swift in Sources */,
+				71D543C11F9A0DA700721CFC /* Result.swift in Sources */,
 				711DAA6E1F9911F00006A620 /* Cache.swift in Sources */,
-				3B4F145A1DDF0B5200D31F1B /* JRCWebError.swift in Sources */,
+				3B4F145A1DDF0B5200D31F1B /* WebError.swift in Sources */,
+				71D543BD1F9A086B00721CFC /* Resource.swift in Sources */,
 				3B4F14451DDF09E500D31F1B /* ViewController.swift in Sources */,
 				3B4F145F1DDF0CC600D31F1B /* Reachability.swift in Sources */,
 				3B4F14431DDF09E500D31F1B /* AppDelegate.swift in Sources */,
 				711DAA6C1F9911A60006A620 /* CacheItem.swift in Sources */,
-				3B4F145D1DDF0C4D00D31F1B /* JRCWebClient.swift in Sources */,
-				711DAA711F9935D50006A620 /* JRCCachedWebClient.swift in Sources */,
+				3B4F145D1DDF0C4D00D31F1B /* WebClient.swift in Sources */,
+				711DAA711F9935D50006A620 /* CachedWebClient.swift in Sources */,
+				71D543BF1F9A08D700721CFC /* Path.swift in Sources */,
 				3B4F14561DDF0A3000D31F1B /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

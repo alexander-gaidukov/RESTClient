@@ -8,6 +8,16 @@
 
 import Foundation
 
+extension Resource {
+    var cacheKey: String {
+        var result = "cache_" + path.absolutePath + "_"
+        for key in params.keys.sorted() {
+            result += "\(key)=\(String(describing: params[key]))"
+        }
+        return result
+    }
+}
+
 final class Cache {
     
     static let shared: Cache = Cache()
@@ -26,8 +36,11 @@ final class Cache {
         sessionCache.removeAllObjects()
     }
     
-    func load(key: String) -> Data? {
-        guard let cacheItem = (sessionCache.object(forKey: key as AnyObject)) else {
+    func load<A, E>(forResource resource: Resource<A, E>) -> A? {
+        
+        guard resource.method == .get else { return nil }
+        
+        guard let cacheItem = (sessionCache.object(forKey: resource.cacheKey as AnyObject)) else {
             return nil
         }
         
@@ -36,13 +49,15 @@ final class Cache {
             return nil
         }
         
-        return cacheItem.data
+        return resource.parse(cacheItem.data)
     }
     
-    func save(_ data: Data, forKey key: String, aliveDuration: TimeInterval? = nil) {
+    func save<A, E>(_ data: Data, forResource resource: Resource<A, E>, aliveDuration: TimeInterval? = nil) {
+        
+        guard resource.method == .get else { return }
         
         let cacheItem = CacheItem(data: data, aliveTill: aliveDuration.flatMap({ Date().addingTimeInterval($0) }))
         
-        sessionCache.setObject(cacheItem, forKey: key as AnyObject)
+        sessionCache.setObject(cacheItem, forKey: resource.cacheKey as AnyObject)
     }
 }
