@@ -21,13 +21,18 @@ public enum RequestMethod: String {
 extension URL {
     init<A, E>(baseUrl: String, resource: Resource<A, E>) {
         var components = URLComponents(string: baseUrl)!
-        components.path = Path(components.path).appending(path: resource.path).absolutePath
+        let resourceComponents = URLComponents(string: resource.path.absolutePath)!
+        
+        components.path = Path(components.path).appending(path: Path(resourceComponents.path)).absolutePath
+        components.queryItems = resourceComponents.queryItems
         
         switch resource.method {
         case .get, .delete:
-            components.queryItems = resource.params.map {
+            var queryItems = components.queryItems ?? []
+            queryItems.append(contentsOf: resource.params.map {
                 URLQueryItem(name: $0.key, value: String(describing: $0.value))
-            }
+            })
+            components.queryItems = queryItems
         default:
             break
         }
